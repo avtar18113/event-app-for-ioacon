@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "conference-app",
+    "name": "IOACON 2025 Conference App",
     "slug": "conference-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,7 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.ioacon2025conferenceapp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,10 +25,16 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.ioacon2025conferenceapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "760d11b7-42a4-45b8-91d2-705fdf5eb08f"
+      }
     }
   }
 }
