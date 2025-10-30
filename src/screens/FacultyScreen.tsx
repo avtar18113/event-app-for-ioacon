@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import Screen from "../components/Screen";
 import { FlatList, Image, Text, View } from "react-native";
 import { getFaculty } from "../api/faculty";
+import { colors } from "../theme/colors";
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function FacultyScreen() {
   const [items,setItems] = useState<any[]>([]);
   useEffect(() => { (async () => setItems(await getFaculty()))(); }, []);
   return (
     <Screen>
+      <SafeAreaProvider>
       <FlatList
         data={items}
         keyExtractor={(i:any)=>String(i.id)}
@@ -22,6 +25,7 @@ export default function FacultyScreen() {
           </View>
         )}
       />
+      </SafeAreaProvider>
     </Screen>
   );
 }

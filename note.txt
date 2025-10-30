@@ -1,0 +1,39 @@
+awesome—what should we tackle next? here are some good options you can pick from (or tell me something else):
+
+1. Scientific Program
+
+   * day-wise list + hall filters + search
+   * bookmark toggle + “My Schedule”
+   * local reminder scheduling (client-side)
+
+2. Notifications
+
+   * auto-refresh (polling) every X min
+   * “mark all read” + badge count on tab
+
+3. Dashboard
+
+   * API-driven buttons with icons
+   * open links in in-app WebView + deep-links
+
+4. Faculty & Committee
+
+   * search by name/city/designation
+   * alphabetical index + fast scroll
+
+5. Auth UX
+
+   * form validation + error toasts
+   * remember me + auto-login
+
+6. Build/Release
+
+   * production EAS profiles (apk/aab)
+   * environment switching (dev/stage/prod)
+
+7. Backend
+
+   * cron to send “10-min before” session notifications
+   * admin-safe endpoints & logs
+
+which one do you want to start with?

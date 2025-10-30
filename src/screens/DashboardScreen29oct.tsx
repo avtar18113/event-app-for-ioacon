@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-import axios from "axios";
 import AppCarousel from "../components/AppCarousel";
-import { colors } from "../theme/colors";
-import SafeScreen from "../components/SafeScreen";
-import { Ionicons } from "@expo/vector-icons";
-
-
 import {
   View,
   Text,
@@ -17,9 +10,10 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-
-
-
+import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
+import { colors } from "../theme/colors";
+import SafeScreen from "../components/SafeScreen";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -34,6 +28,7 @@ export default function DashboardScreen({ navigation }: any) {
         axios.get("https://app.concepttc.com/api/v1/dashboard/carousel"),
         axios.get("https://app.concepttc.com/api/v1/dashboard/menu"),
       ]);
+
       if (bannerRes.data.success) setBanners(bannerRes.data.data.banners);
       if (menuRes.data.success) setButtons(menuRes.data.data.buttons);
     } catch (err) {
@@ -45,51 +40,46 @@ export default function DashboardScreen({ navigation }: any) {
 
   useEffect(() => {
     fetchDashboardData();
-
-    // auto-refresh every 3 minutes
-    const interval = setInterval(() => {
-      fetchDashboardData();
-    }, 3 * 60 * 1000);
-
-    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
     return (
-      <SafeScreen>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      </SafeScreen>
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color={colors.primary} />
+        <Text style={{ marginTop: 10, color: colors.primary }}>Loading...</Text>
+      </View>
     );
   }
 
   return (
     <SafeScreen>
-      <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-        <AppCarousel banners={banners} />
-        <View style={styles.gridContainer}>
-          {buttons.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              style={styles.card}
-              onPress={() => {
-                if (item.web_url && item.web_url !== "") {
-                  navigation.navigate("WebViewPage", { url: item.web_url, title: item.title });
-                } else if (item.slug) {
-                  navigation.navigate(item.slug);
-                }
-              }}
-            >
-              <View style={styles.iconBox}>
-                <Ionicons name={item.icon || "apps"} size={26} color={colors.primary} />
-              </View>
-              <Text style={styles.cardText}>{item.title}</Text>
-            </TouchableOpacity>
+    <ScrollView style={styles.container} >
+      {/* Carousel */}
 
-          ))}
-        </View>
-      </ScrollView>
+      <AppCarousel banners={banners} />
+      {/* Buttons Grid */}
+      <View style={styles.gridContainer}>
+        {buttons.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            style={styles.card}
+            onPress={() => {
+              if (item.web_url && item.web_url !== "") {
+                navigation.navigate("WebViewPage", { url: item.web_url, title: item.title });
+              } else if (item.slug) {
+                navigation.navigate(item.slug);
+              }
+            }}
+          >
+            <View style={styles.iconBox}>
+              <Ionicons name={item.icon || "apps"} size={26} color={colors.primary} />
+            </View>
+            <Text style={styles.cardText}>{item.title}</Text>
+          </TouchableOpacity>
+
+        ))}
+      </View>
+    </ScrollView>
     </SafeScreen>
   );
 }
